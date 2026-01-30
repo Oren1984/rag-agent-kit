@@ -1,0 +1,63 @@
+﻿name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install
+        run: |
+          python -m pip install -U pip
+          pip install .
+          pip install pytest
+
+      - name: Create env
+        run: |
+          cp .env.example .env
+          sed -i 's/RAG_API_KEY=change-me/RAG_API_KEY=ci-test-key/' .env
+
+      - name: Run tests
+        run: |
+          pytest -q
+
+      - name: Run audit (python)
+        run: |
+          python scripts/rag_audit.py
+
+      - name: Write BUILD_INFO.json
+        run: |
+          python -c "from src.meta.build_info import write_build_info; write_build_info('BUILD_INFO.json')"
+          cat BUILD_INFO.json
+
+      - name: Start API (background)
+        run: |
+          nohup uvicorn src.main:app --host 127.0.0.1 --port 8000 >/tmp/uvicorn.log 2>&1 &
+          sleep 2
+          curl -sS http://127.0.0.1:8000/health
+
+      - name: Smoke test (python)
+        run: |
+          python scripts/smoke_test.py
+
+      - name: Upload BUILD_INFO.json artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-info
+          path: BUILD_INFO.json
+
+      - name: Show server logs on failure
+        if: failure()
+        run: |
+          echo "==== uvicorn.log ===="
+          cat /tmp/uvicorn.log || true
