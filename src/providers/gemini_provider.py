@@ -1,7 +1,11 @@
-﻿import requests
+﻿# src/providers/gemini_provider.py
+# Gemini LLM provider implementation for the RAG Agent Kit application.
+
+import requests
 from src.providers.base import LLMProvider
 from src.core.settings import settings
 
+# Gemini LLM provider class to generate
 class GeminiProvider(LLMProvider):
     def generate(self, prompt: str) -> str:
         if not settings.gemini_api_key:
@@ -15,7 +19,8 @@ class GeminiProvider(LLMProvider):
             ],
             "generationConfig": {"temperature": 0.2},
         }
-
+        
+        # Call Gemini API to get response
         r = requests.post(url, json=payload, timeout=30)
         r.raise_for_status()
         data = r.json()

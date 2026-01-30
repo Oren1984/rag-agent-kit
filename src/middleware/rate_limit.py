@@ -1,4 +1,7 @@
-﻿import time
+﻿# src/middleware/rate_limit.py
+# Rate limiting middleware for the RAG Agent Kit application.
+
+import time
 from collections import defaultdict, deque
 from fastapi import Request
 from fastapi.responses import JSONResponse
@@ -7,9 +10,11 @@ from src.core.settings import settings
 # In-memory sliding window: key -> timestamps
 _hits: dict[str, deque[float]] = defaultdict(deque)
 
+# Get current time in seconds
 def _now() -> float:
     return time.time()
 
+# Function to add rate limiting middleware to the FastAPI app
 def rate_limit_middleware(app):
     @app.middleware("http")
     async def _rate_limit(request: Request, call_next):

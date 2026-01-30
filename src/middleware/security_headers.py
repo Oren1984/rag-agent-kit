@@ -1,6 +1,10 @@
-﻿from fastapi import Request
+﻿# src/middleware/security_headers.py
+# Security headers middleware for the RAG Agent Kit application.
+
+from fastapi import Request
 from src.core.settings import settings
 
+# Function to add security headers middleware to the FastAPI app
 def security_headers_middleware(app):
     @app.middleware("http")
     async def _headers(request: Request, call_next):

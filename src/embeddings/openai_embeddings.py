@@ -1,12 +1,17 @@
-﻿import requests
+﻿# src/embeddings/openai_embeddings.py
+# OpenAI embeddings implementation for the RAG Agent Kit application.
+
+import requests
 from src.core.settings import settings
 from src.embeddings.base import Embeddings
 
+# OpenAI embeddings class to generate text embeddings using OpenAI API
 class OpenAIEmbeddings(Embeddings):
     def embed(self, text: str) -> list[float]:
         if not settings.openai_api_key:
             raise RuntimeError("OPENAI_API_KEY is required for embeddings when using pgvector")
 
+        # Call OpenAI API to get embeddings
         url = "https://api.openai.com/v1/embeddings"
         headers = {
             "Authorization": f"Bearer {settings.openai_api_key}",

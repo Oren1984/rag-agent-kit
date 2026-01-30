@@ -1,6 +1,10 @@
-﻿from pydantic_settings import BaseSettings, SettingsConfigDict
+﻿# src/core/settings.py
+# Application settings for the RAG Agent Kit application.
+
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field
 
+# Application settings class
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 

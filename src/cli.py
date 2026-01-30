@@ -1,8 +1,12 @@
-﻿import argparse
+﻿# src/cli.py
+# Command-line interface for the RAG Agent Kit application.
+
+import argparse
 import subprocess
 import sys
 from pathlib import Path
 
+# Run code audit script
 def run_audit() -> None:
     audit = Path("scripts/rag_audit.py")
     if not audit.exists():
@@ -15,6 +19,7 @@ def run_audit() -> None:
         print("[FAIL] Audit failed. Fix issues before running.")
         sys.exit(r.returncode)
 
+# Write build info to BUILD_INFO.json
 def write_build_info() -> None:
     try:
         from src.meta.build_info import write_build_info
@@ -23,6 +28,7 @@ def write_build_info() -> None:
     except Exception as e:
         print(f"[WARN] Could not write BUILD_INFO.json: {type(e).__name__}")
 
+# Start the API server
 def serve(host: str, port: int) -> None:
     run_audit()
     write_build_info()
@@ -31,6 +37,7 @@ def serve(host: str, port: int) -> None:
     cmd = [sys.executable, "-m", "uvicorn", "src.main:app", "--host", host, "--port", str(port)]
     raise SystemExit(subprocess.call(cmd))
 
+# Main function to parse arguments and execute commands
 def main() -> None:
     parser = argparse.ArgumentParser(prog="rag-agent-kit")
     sub = parser.add_subparsers(dest="cmd", required=True)

@@ -1,20 +1,39 @@
-﻿# Python
+﻿# ======================
+# Python
+# ======================
 __pycache__/
 *.py[cod]
 .pytest_cache/
 .venv/
 venv/
+*.egg-info/
 
+# ======================
 # Env / secrets
+# ======================
 .env
 .env.*
 !.env.example
 
+# ======================
+# Build artifacts
+# ======================
+BUILD_INFO.json
+
+# ======================
 # OS / IDE
+# ======================
 .DS_Store
 Thumbs.db
 .vscode/
 
+# ======================
 # Logs
+# ======================
 *.log
 logs/
+
+# ======================
+# Local tooling
+# ======================
+.github/act-history.json

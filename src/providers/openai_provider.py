@@ -1,12 +1,17 @@
-﻿import requests
+﻿# src/providers/openai_provider.py
+# OpenAI LLM provider implementation for the RAG Agent Kit application.
+
+import requests
 from src.providers.base import LLMProvider
 from src.core.settings import settings
 
+# OpenAI LLM provider class to generate
 class OpenAIProvider(LLMProvider):
     def generate(self, prompt: str) -> str:
         if not settings.openai_api_key:
             return f"[openai-stub] {prompt}"
 
+        # Call OpenAI API to get response
         url = "https://api.openai.com/v1/chat/completions"
         headers = {
             "Authorization": f"Bearer {settings.openai_api_key}",
@@ -21,6 +26,7 @@ class OpenAIProvider(LLMProvider):
             "temperature": 0.2,
         }
 
+        # Call OpenAI API to get response
         r = requests.post(url, headers=headers, json=payload, timeout=30)
         r.raise_for_status()
         data = r.json()

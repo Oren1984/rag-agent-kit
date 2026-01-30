@@ -1,16 +1,23 @@
-﻿import os
+﻿# scripts/rag_audit.py
+# Basic audit script for RAG setup
+
+import os
 import sys
 
+# Helper functions for output
 def fail(msg: str):
     print(f"[FAIL] {msg}")
     sys.exit(1)
 
+#  Helper functions for output
 def warn(msg: str):
     print(f"[WARN] {msg}")
 
+#  Helper functions for output
 def ok(msg: str):
     print(f"[OK] {msg}")
 
+# Main audit function
 def main():
     if not os.path.exists(".env"):
         fail(".env file is missing")

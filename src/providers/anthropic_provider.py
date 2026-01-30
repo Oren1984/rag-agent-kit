@@ -1,12 +1,17 @@
-﻿import requests
+﻿# src/providers/anthropic_provider.py
+# Anthropic LLM provider implementation for the RAG Agent Kit application.
+
+import requests
 from src.providers.base import LLMProvider
 from src.core.settings import settings
 
+# Anthropic LLM provider class to generate
 class AnthropicProvider(LLMProvider):
     def generate(self, prompt: str) -> str:
         if not settings.anthropic_api_key:
             return f"[anthropic-stub] {prompt}"
 
+        # Call Anthropic API to get completion
         url = "https://api.anthropic.com/v1/messages"
         headers = {
             "x-api-key": settings.anthropic_api_key,
@@ -21,6 +26,7 @@ class AnthropicProvider(LLMProvider):
             "messages": [{"role": "user", "content": prompt}],
         }
 
+        # Call Anthropic API to get response
         r = requests.post(url, headers=headers, json=payload, timeout=30)
         r.raise_for_status()
         data = r.json()

@@ -1,9 +1,14 @@
-﻿import os
+﻿# scripts/smoke_test.py
+# SMOKE TEST script for RAG setup
+
+import os
 import time
 import requests
 
+# Configuration 
 BASE = "http://127.0.0.1:8000"
 
+# Load API key from .env
 def load_api_key() -> str:
     if not os.path.exists(".env"):
         raise SystemExit("Missing .env")
@@ -12,6 +17,7 @@ def load_api_key() -> str:
             return line.split("=", 1)[1].strip()
     raise SystemExit("Missing RAG_API_KEY in .env")
 
+# Main smoke test function
 def main():
     key = load_api_key()
 
