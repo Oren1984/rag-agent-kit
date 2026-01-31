@@ -18,6 +18,8 @@ Designed to be:
 - Web Search (optional): OFF by default
 - Built-in: basic `audit` + `smoke test` scripts
 - CI: runs audit + tests
+- - **Automation Ready**: Easy integration with workflow engines such as n8n or custom webhooks
+- **Live Intelligence (Optional)**: External web search via Tavily / Serper for real-time context enrichment
 
 ---
 
