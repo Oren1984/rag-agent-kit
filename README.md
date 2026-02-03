@@ -23,6 +23,15 @@ Designed to be:
 
 ---
 
+## Infrastructure (Optional)
+This project includes an **optional, infra-only Terraform setup** for AWS
+(ECR repository only).  
+It is **not used at runtime** and exists for learning and future extension.
+
+See: `docs/AWS_INFRA_ONLY.md`
+
+---
+
 ## Quickstart (Docker - Recommended)
 1) Clone:
    - `git clone <your-repo-url>`

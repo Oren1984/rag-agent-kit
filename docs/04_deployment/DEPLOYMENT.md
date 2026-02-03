@@ -1,30 +1,56 @@
 # Deployment
 
-This project is a **headless RAG API** and can be deployed in multiple ways,
-depending on the target environment.
+This project is a **headless RAG API (API-only service)**.
+Deployment options are intentionally **limited and local-first**,
+as this is a **junior-level, educational project**.
 
-## Supported Deployment Options
+The goal is to demonstrate correct runtime setup, configuration,
+and validation — **not full cloud deployment**.
 
-### 1. Local Development
+---
+
+## Supported Runtime Modes
+
+### 1. Local Development (Python)
 - Python virtual environment
 - `python -m src.cli serve`
 - Intended for development and debugging only
 
 ### 2. Docker (Single Container)
-- Build using `Dockerfile`
-- Suitable for local testing and simple deployments
+- Build using the provided `Dockerfile`
+- Useful for local testing and isolated runs
 
-### 3. Docker Compose
-- Multi-container setup
+### 3. Docker Compose (Recommended)
+- Multi-container local setup
 - API + PostgreSQL (pgvector)
-- Recommended for production-like environments
+- Used for verification, testing, and CI
+- **Default runtime for this project**
 
-## Environment Configuration
-- All configuration is done via environment variables
-- `.env.example` provided as a reference
+---
+
+## Explicitly Out of Scope
+
+The following are intentionally **not included**:
+
+- Cloud deployment (ECS, EKS, EC2, App Runner)
+- Kubernetes manifests
+- Production ingress, load balancers, or autoscaling
+- Managed observability or SaaS platforms
+
+Infrastructure work is limited to **infra-only Terraform**
+(see `AWS_INFRA_ONLY.md`) and is **not used at runtime**.
+
+---
+
+## Configuration & Secrets
+- All configuration is via environment variables
+- `.env.example` is provided
 - Secrets must never be committed
+
+---
 
 ## Notes
 - No UI is included (API-only service)
-- Reverse proxy (NGINX, Traefik) can be added externally
-- Kubernetes deployment is possible but not included
+- Reverse proxy can be added externally if required
+- Observability is provided via a **local stack**
+  (Phoenix + OpenTelemetry, infra-level only)

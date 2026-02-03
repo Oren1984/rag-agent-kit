@@ -1,5 +1,6 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+# tests/smoke_test.py
+# Test smoke test for RAG Agent Kit API
+
 """
 Minimal smoke test for RAG Agent Kit API
 Tests basic endpoints without requiring pytest
