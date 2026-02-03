@@ -48,7 +48,7 @@ class Settings(BaseSettings):
 
     # Vector store
     vectorstore: str = Field(default="memory")  # memory|pgvector
-    pg_dsn: str = Field(default="postgresql://rag:rag@127.0.0.1:5432/rag")
+    pg_dsn: str = Field(default="postgresql://rag:rag@db:5432/rag")  # Use 'db' for Docker networks
     pg_collection: str = Field(default="rag_docs")
 
 settings = Settings()

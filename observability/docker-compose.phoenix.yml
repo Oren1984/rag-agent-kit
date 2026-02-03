@@ -1,0 +1,23 @@
+services:
+  phoenix:
+    image: arizephoenix/phoenix:latest
+    ports:
+      - "6006:6006"
+    networks:
+      - observability
+
+  otel:
+    image: otel/opentelemetry-collector
+    command: ["--config=/etc/otel/config.yaml"]
+    volumes:
+      - ./otel/config.yaml:/etc/otel/config.yaml
+    ports:
+      - "4318:4318"
+    networks:
+      - observability
+    depends_on:
+      - phoenix
+
+networks:
+  observability:
+    name: observability
