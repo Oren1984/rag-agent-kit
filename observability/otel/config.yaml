@@ -1,12 +1,18 @@
+# observability/otel/config.yaml
+# OpenTelemetry Collector configuration file
+
+# Receivers configuration
 receivers:
   otlp:
     protocols:
       http:
 
+# Exporters configuration
 exporters:
   otlphttp:
     endpoint: http://phoenix:6006/v1/traces
 
+# Service configuration
 service:
   pipelines:
     traces:

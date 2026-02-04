@@ -1,3 +1,7 @@
+# observability/docker-compose.phoenix.yml
+# Docker Compose configuration for Phoenix and OpenTelemetry Collector
+
+# Services configuration
 services:
   phoenix:
     image: arizephoenix/phoenix:latest
@@ -6,6 +10,7 @@ services:
     networks:
       - observability
 
+# OpenTelemetry Collector service
   otel:
     image: otel/opentelemetry-collector
     command: ["--config=/etc/otel/config.yaml"]
@@ -18,6 +23,7 @@ services:
     depends_on:
       - phoenix
 
+# Networks configuration
 networks:
   observability:
     name: observability
